@@ -26,12 +26,14 @@ const btnView = document.querySelectorAll('.btn-action')
 if (btnView) {
     btnView.forEach(function (actionView) {
         actionView.addEventListener('click', function () {
-            const listImg = document.querySelectorAll('data-product');
+            const product = actionView.getAttribute('data-id')
+            const anhSrc = document.querySelector(`#img-sp-${product}`)
             
-            listImg.forEach(function (img) {
+            viewImg.setAttribute('src', anhSrc.getAttribute('src'))
+            /* listImg.forEach(function (img) {
                 const listSrc = img.getAttribute('src');
-                viewImg.setAttribute('src', listSrc)
-            })
+                viewImg.setAttribute('src', listSrc) 
+            })*/
             viewModal.classList.toggle('d-none')
         })
     })
