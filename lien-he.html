@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +7,12 @@
     <link rel="stylesheet" href="./css1.css">
     <link rel="stylesheet" href="./system.css">
 </head>
-
 <body>
     <div class="container">
         <h1>Liên hệ</h1>
-
         <form id="formcontainer" class="form-container">
-
             <div class="form-input-block">
-                <label for="fullname" class="d-block input-label">Tên của bạn</label>
+                <label for="name" class="d-block input-label">Tên của bạn</label>
                 <input id="name" class="input-block d-block" type="text">
             </div>
             <div class="form-input-block">
@@ -25,85 +21,65 @@
             </div>
             <div class="form-input-block">
                 <label for="comment" class="d-block input-label">Ý kiến của bạn</label>
-                <textarea class="commet-block d-block" name="" id="comment" placeholder="Gửi ý kiến của bạn"></textarea>
+                <textarea class="comment-block d-block" id="comment" placeholder="Gửi ý kiến của bạn"></textarea>
             </div>
             <div>
-                <button class="btn-submit">Gửi</button>
+                <button type="submit" class="btn-submit">Gửi</button>
             </div>
         </form>
-
     </div>
-
     <div class="my-custom-chat-plugin">
         <div class="chat-header"></div>
         <div id="chatBody1" class="chat-body">
-
             <div class="msg partner-msg">
                 Đi chơi không bạn ơi
             </div>
             <div class="msg my-msg">
                 Đi chứ
             </div>
-
         </div>
         <div class="typing-block">
-
             <form class="d-flex msg-form">
                 <textarea id="my-msg" placeholder="Nhập tin nhắn..."></textarea>
                 <button class="btn-submit-msg">Gửi</button>
             </form>
-
         </div>
-
     </div>
-
-</body>
-
-<script>
-    const formContainer = document.querySelector('#formcontainer');
-    const fullname = document.querySelector('#fullname');
-    const phone = document.querySelector('#phone');
-    const comment = document.querySelector('#comment');
-    formContainer.addEventListener('submit', function (event) {
-        event.preventDefault();
-        const Thongbaoloi = []
-        if (!fullname.value.trim()) {
-            Thongbaoloi.push('name')
-        }
-
-        if (!phone.value.trim() || phone.value.trim().length < 9) {
-            Thongbaoloi.push('name')
-        }
-
-        if (!comment.value.trim() || comment.value.trim().length < 50 || comment.value.trim().length > 200) {
-            Thongbaoloi.push('name')
-        }
-
-        if (Thongbaoloi.length) {
-            alert('Lỗi')
-            // Thongbaoloi.forEach(query =>){}
-        }
-
-    })
-    console.log(fullname.value);
-
-    const listRoomMsg = document.querySelectorAll('#chatBody1')
-
-    function renderMsgFromData(msgData){
-        return`<div class="msg ${msgData.isMe ? 'my-msg' : 'partner-msg'}">
+    <script>
+        const formContainer = document.querySelector('#formcontainer');
+        formContainer.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const fullname = document.querySelector('#name');
+            const phone = document.querySelector('#phone');
+            const comment = document.querySelector('#comment');
+            const Thongbaoloi = [];
+            if (!fullname.value.trim()) {
+                Thongbaoloi.push('name');
+            }
+            if (!phone.value.trim() || isNaN(phone.value.trim()) || phone.value.trim().length < 9) {
+                Thongbaoloi.push('phone');
+            }
+            if (!comment.value.trim() || comment.value.trim().length < 50 || comment.value.trim().length > 200) {
+                Thongbaoloi.push('comment');
+            }
+            if (Thongbaoloi.length) {
+                alert('Lỗi');
+                // Thongbaoloi.forEach(query =>){}
+            }
+        });
+        const listRoomMsg = document.querySelectorAll('.msg');
+        function renderMsgFromData(msgData) {
+            return `<div class="msg ${msgData.isMe ? 'my-msg' : 'partner-msg'}">
                 ${msgData.content}
-            </div>`
-    }
-
-    function renderListData() {
-        let str = '';
-        listRoomMsg.forEach(item =>{
-            str += renderMsgFromData(item);
-        })
-        renderListData();
-    }
-
-
-</script>
-
+            </div>`;
+        }
+        function renderListData() {
+            let str = '';
+            listRoomMsg.forEach(item => {
+                str += renderMsgFromData(item);
+            });
+            renderListData();
+        }
+    </script>
+</body>
 </html>
